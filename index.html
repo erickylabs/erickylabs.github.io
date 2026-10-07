@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Erick Amarales — IT support, systems, networking, cloud, and infrastructure portfolio.">
+  <meta name="theme-color" content="#071521">
+  <title>Erick Amarales | IT Support • Systems • Networking</title>
+  <style>
+    :root{
+      --bg:#071521;--panel:rgba(14,36,56,.78);--panel2:#102c45;--text:#f5f8fc;
+      --muted:#a8bacd;--subtle:#728ba3;--line:rgba(133,177,215,.18);
+      --line2:rgba(104,190,255,.32);--blue:#68bdf5;--blue2:#9ad7ff;--max:1100px;
+      --shadow:0 22px 70px rgba(0,0,0,.22)
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth;scroll-padding-top:86px}
+    body{margin:0;background:
+      radial-gradient(circle at 10% 8%,rgba(92,178,236,.08),transparent 26rem),
+      radial-gradient(circle at 92% 24%,rgba(48,116,180,.12),transparent 30rem),var(--bg);
+      color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+      caret-color:transparent;cursor:default}
+    main,header,footer{-webkit-user-select:none;user-select:none}
+    a,button{cursor:pointer}
+    a{color:inherit;text-decoration:none}.wrap{width:min(calc(100% - 40px),var(--max));margin-inline:auto}
+
+    .ambient{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+    .ambient:before,.ambient:after{content:"";position:absolute;width:34rem;height:34rem;border-radius:50%;filter:blur(90px);opacity:.18;animation:drift 18s ease-in-out infinite alternate}
+    .ambient:before{background:#2e8bc7;top:8%;right:-15rem}.ambient:after{background:#1d5f91;bottom:8%;left:-15rem;animation-delay:-7s}
+    .grid{position:fixed;inset:0;z-index:-3;pointer-events:none;opacity:.15;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:56px 56px;mask-image:linear-gradient(to bottom,black,transparent 88%)}
+    @keyframes drift{to{transform:translate3d(40px,-30px,0) scale(1.08)}}
+
+    .site-header{position:sticky;top:0;z-index:40;background:rgba(7,21,33,.80);border-bottom:1px solid var(--line);backdrop-filter:blur(18px)}
+    .nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+    .brand{font-size:18px;font-weight:800;letter-spacing:-.035em;white-space:nowrap}.brand span{color:var(--blue)}
+    .nav-links,.social-nav{display:flex;align-items:center}.nav-links{gap:24px}.social-nav{gap:10px;margin-left:6px;padding-left:16px;border-left:1px solid var(--line)}
+    .nav-links>a{color:var(--muted);font-size:13px;font-weight:650;transition:color .2s}.nav-links>a:hover,.nav-links>a.active{color:var(--text)}
+    .icon-link{width:36px;height:36px;display:grid;place-items:center;border-radius:9px;color:var(--muted);transition:.2s}
+    .icon-link:hover{color:var(--blue2);background:rgba(104,189,245,.07);transform:translateY(-1px)} .icon-link svg{width:19px;height:19px}
+
+    .hero{min-height:calc(100vh - 70px);display:grid;grid-template-columns:1.12fr .88fr;gap:72px;align-items:center;padding:90px 0 110px;position:relative}
+    .eyebrow,.section-label{margin:0 0 16px;color:var(--blue);font-size:11px;font-weight:800;letter-spacing:.15em}
+    .hero h1{margin:0;max-width:820px;font-size:clamp(4.2rem,10vw,7.7rem);line-height:.94;letter-spacing:-.07em}.accent{color:var(--blue)}
+    .hero-role{margin:25px 0 0;color:#d7e5f2;font-size:clamp(1.2rem,2.7vw,1.6rem);font-weight:600;letter-spacing:-.02em}
+    .hero-copy{max-width:720px;margin:18px 0 0;color:var(--muted);font-size:16px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
+    .button{min-height:45px;padding:0 17px;display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--line2);border-radius:999px;background:rgba(11,34,54,.72);color:#dce9f5;font-size:13px;font-weight:750;transition:.2s}
+    .button:hover{transform:translateY(-2px);background:rgba(22,64,96,.78);border-color:rgba(126,202,255,.48)} .button.primary{background:var(--blue);border-color:var(--blue);color:#052033}
+    .hero-side{position:relative;min-height:420px;display:flex;align-items:center;justify-content:center}
+    .network-orbit{width:min(88vw,390px);aspect-ratio:1;position:relative;border:1px solid rgba(123,191,236,.16);border-radius:50%;box-shadow:0 0 0 38px rgba(123,191,236,.025),0 0 0 78px rgba(123,191,236,.018);animation:slowspin 30s linear infinite}
+    .network-orbit:before,.network-orbit:after{content:"";position:absolute;inset:18%;border:1px dashed rgba(137,205,249,.17);border-radius:50%}.network-orbit:after{inset:36%;border-style:solid;opacity:.72}
+    @keyframes slowspin{to{transform:rotate(360deg)}} .node{position:absolute;width:15px;height:15px;border-radius:50%;background:var(--blue);box-shadow:0 0 24px rgba(104,189,245,.55)}
+    .n1{top:9%;left:49%}.n2{top:49%;right:8%}.n3{bottom:10%;left:48%}.n4{top:50%;left:8%}
+    .core{position:absolute;inset:40%;display:grid;place-items:center;border:1px solid var(--line2);border-radius:20px;background:linear-gradient(145deg,rgba(30,83,123,.80),rgba(9,35,55,.88));color:var(--blue2);font-weight:900;letter-spacing:.04em;box-shadow:0 18px 48px rgba(0,0,0,.24);animation:counterspin 30s linear infinite}
+    @keyframes counterspin{to{transform:rotate(-360deg)}}
+
+    .section{padding:94px 0;border-top:1px solid var(--line)} .section-head{max-width:760px;margin-bottom:42px}
+    .section-head h2{margin:0;font-size:clamp(2.2rem,5vw,3.9rem);line-height:1.03;letter-spacing:-.05em}
+    .section-head p:last-child{margin:15px 0 0;color:var(--muted);max-width:700px}
+
+    .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:54px;align-items:start}.about-copy{color:#c3d1df;font-size:18px}.about-copy p{margin-bottom:18px}
+    .tech-list{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;margin-top:26px}.tech-list span{color:var(--muted);font-size:14px}.tech-list span:before{content:"▹";color:var(--blue);margin-right:10px}
+    .about-card{padding:24px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,rgba(16,44,69,.82),rgba(10,29,46,.78));box-shadow:var(--shadow)}
+    .about-stat{padding:17px 0;border-bottom:1px solid var(--line)}.about-stat:first-child{padding-top:0}.about-stat:last-child{border-bottom:0;padding-bottom:0}
+    .about-stat span{display:block;margin-bottom:4px;color:var(--subtle);font-size:10px;font-weight:800;letter-spacing:.12em}.about-stat strong{font-size:15px}
+
+    .timeline{display:grid;gap:16px}.experience-card{padding:30px;border:1px solid var(--line);border-radius:16px;background:var(--panel);box-shadow:0 18px 60px rgba(0,0,0,.16)}
+    .experience-top{display:flex;justify-content:space-between;gap:30px;align-items:start;margin-bottom:18px}.experience-top h3{margin:0 0 5px;font-size:23px;letter-spacing:-.025em}
+    .experience-company{margin:0;color:var(--blue2);font-size:14px}.experience-date{color:var(--subtle);font-size:12px;white-space:nowrap}
+    .experience-list{margin:20px 0 0;padding:0;display:grid;gap:11px;list-style:none}.experience-list li{position:relative;padding-left:20px;color:var(--muted);font-size:14px}.experience-list li:before{content:"▹";position:absolute;left:0;color:var(--blue)}
+    .impact-row{margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.impact{padding:18px;border:1px solid var(--line);border-radius:12px;background:rgba(5,20,32,.34)}
+    .impact strong{display:block;color:var(--blue);font-size:26px;line-height:1}.impact span{display:block;margin-top:7px;color:var(--subtle);font-size:11px}
+    .secondary-role{padding:21px 24px;display:flex;justify-content:space-between;gap:24px;border:1px solid var(--line);border-radius:14px;background:rgba(9,29,46,.58)}
+    .secondary-role h3{margin:0 0 3px;font-size:16px}.secondary-role p,.secondary-role time{margin:0;color:var(--subtle);font-size:12px}
+
+    .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.project-card{min-height:390px;padding:25px;position:relative;overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:16px;background:linear-gradient(155deg,rgba(17,49,76,.88),rgba(9,30,48,.78));transition:.25s}
+    .project-card:hover{transform:translateY(-6px);border-color:rgba(104,189,245,.40);box-shadow:var(--shadow)}
+    .project-icon{width:48px;height:48px;display:grid;place-items:center;margin-bottom:36px;color:var(--blue);border:1px solid var(--line2);border-radius:12px;background:rgba(104,189,245,.06)}
+    .project-icon svg{width:24px;height:24px}.project-card h3{margin:0 0 10px;font-size:21px;letter-spacing:-.02em}.project-card p{margin:0;color:var(--muted);font-size:13px}
+    .tags{margin-top:auto;padding-top:24px;display:flex;flex-wrap:wrap;gap:7px}.tags span{color:var(--blue2);font-size:10px;font-weight:750;letter-spacing:.08em}
+
+    .feature-card{display:grid;grid-template-columns:.72fr 1.28fr;overflow:hidden;border:1px solid var(--line2);border-radius:18px;background:linear-gradient(135deg,rgba(20,64,98,.90),rgba(9,30,48,.86));box-shadow:var(--shadow)}
+    .feature-mark{min-height:260px;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 50% 50%,rgba(104,189,245,.18),transparent 45%),rgba(11,36,56,.72);overflow:hidden}
+    .feature-mark span{position:relative;z-index:2;color:var(--blue2);font-size:26px;font-weight:900;letter-spacing:.08em}
+    .feature-mark:before,.feature-mark:after{content:"";position:absolute;border:1px solid rgba(123,197,247,.18);border-radius:50%;animation:pulseRing 6s ease-in-out infinite}.feature-mark:before{width:190px;height:190px}.feature-mark:after{width:270px;height:270px;animation-delay:2s}
+    @keyframes pulseRing{0%,100%{transform:scale(.92);opacity:.35}50%{transform:scale(1.06);opacity:.8}}
+    .feature-copy{padding:32px}.feature-copy h3{margin:0 0 7px;font-size:25px;letter-spacing:-.025em}.feature-copy .meta{color:var(--blue);font-size:11px;font-weight:800;letter-spacing:.10em}.feature-copy p{color:var(--muted);font-size:14px}
+    .org-grid{margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.org{padding:16px;border:1px solid var(--line);border-radius:12px;background:rgba(12,34,54,.60)}.org strong{display:block;margin-bottom:4px;font-size:13px}.org span{color:var(--subtle);font-size:11px}
+
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}.info-card{padding:26px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}.info-card h3{margin:0 0 6px;font-size:21px}.info-card>p{margin:0;color:var(--muted);font-size:14px}
+    .coursework{margin-top:22px;display:grid;gap:9px}.course{display:grid;grid-template-columns:84px 1fr auto;gap:11px;align-items:baseline;padding-bottom:9px;border-bottom:1px solid var(--line)}.course:last-child{padding-bottom:0;border-bottom:0}
+    .course code{color:#dbe9f4;font-family:inherit;font-size:11px;font-weight:800}.course span{color:var(--muted);font-size:12px}.course small{color:var(--blue);font-size:9px;font-weight:850;letter-spacing:.08em}
+    .skill-groups{display:grid;gap:20px}.skill-group h4{margin:0 0 10px;color:var(--blue);font-size:11px;letter-spacing:.10em}.skill-pills{display:flex;flex-wrap:wrap;gap:8px}.skill-pills span{padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:#c6d5e2;background:rgba(8,27,43,.48);font-size:11px}
+
+    .contact-section{text-align:center;padding-bottom:120px}.contact-section .section-head{margin-inline:auto}.contact-actions{display:grid;grid-template-columns:repeat(3,minmax(0,170px));justify-content:center;gap:12px;margin-top:34px}
+    .contact-action{appearance:none;-webkit-appearance:none;font:inherit;cursor:pointer;min-height:116px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border:1px solid var(--line);border-radius:15px;background:rgba(14,40,62,.68);color:#dce9f5;transition:.2s}.contact-action:hover{transform:translateY(-4px);border-color:var(--line2);background:rgba(20,55,84,.76)}
+    .contact-action svg{width:23px;height:23px;color:var(--blue)}.contact-action span{font-size:13px;font-weight:700}
+    .footer{min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid var(--line);color:var(--subtle);font-size:11px}
+
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}.delay-1{transition-delay:.08s}.delay-2{transition-delay:.16s}
+
+    @media(max-width:980px){.hero{grid-template-columns:1fr;gap:30px}.hero-side{min-height:360px}.about-grid,.two-col{grid-template-columns:1fr}.project-grid{grid-template-columns:1fr 1fr}.org-grid{grid-template-columns:1fr 1fr}.feature-card{grid-template-columns:1fr}.feature-mark{min-height:190px}}
+    @media(max-width:720px){.wrap{width:min(calc(100% - 28px),var(--max))}.nav{min-height:64px}.nav-links>a{display:none}.social-nav{border-left:0;padding-left:0}.hero{min-height:auto;padding:78px 0 86px}.hero h1{font-size:clamp(4rem,18vw,6rem)}.hero-side{display:none}.section{padding:72px 0}.project-grid,.org-grid,.impact-row{grid-template-columns:1fr}.project-card{min-height:320px}.experience-top,.secondary-role{flex-direction:column;gap:6px}.contact-actions{grid-template-columns:1fr;max-width:420px;margin-inline:auto}.course{grid-template-columns:74px 1fr auto;gap:8px}.footer{flex-direction:column;align-items:flex-start;justify-content:center}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+  </style>
+</head>
+
+<body>
+  <div class="ambient"></div>
+  <div class="grid"></div>
+
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top">erick<span>ylabs</span></a>
+
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+
+        <div class="social-nav">
+          <a class="icon-link" href="mailto:erickviduh@gmail.com" aria-label="Email Erick">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path>
+            </svg>
+          </a>
+          <a class="icon-link" href="https://github.com/erickylabs" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.4 5.4 0 0 0 19.4 4 5 5 0 0 0 19.3.5S18.2.1 15 2a13.4 13.4 0 0 0-6 0C5.8.1 4.7.5 4.7.5A5 5 0 0 0 4.6 4a5.4 5.4 0 0 0-1.4 3.5c0 5.4 3.5 6.6 6.8 7A4.8 4.8 0 0 0 9 18v4"></path><path d="M9 19c-3 .9-3-1.5-4-2"></path>
+            </svg>
+          </a>
+          <a class="icon-link" href="https://www.linkedin.com/in/erick-amarales" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="8" width="4" height="12"></rect><path d="M5 4v.01"></path><path d="M11 20v-7a4 4 0 0 1 8 0v7"></path><path d="M11 8v12"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <section class="hero wrap">
+      <div class="reveal visible">
+        <p class="eyebrow">IT SUPPORT · SYSTEMS · NETWORKING · INFRASTRUCTURE</p>
+        <h1>Erick <span class="accent">Amarales.</span></h1>
+        <p class="hero-role">IT Support Specialist focused on systems, networking, and infrastructure.</p>
+        <p class="hero-copy">
+          Computer Information Technology student at CSUN with two years of hands-on enterprise IT
+          experience supporting Windows systems, Active Directory, endpoint infrastructure,
+          network-connected devices, and production IT operations in a HIPAA-regulated county environment.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#projects">View projects</a>
+          <a class="button" href="#experience">Experience</a>
+          <a class="button" href="mailto:erickviduh@gmail.com">Say hello</a>
+        </div>
+      </div>
+
+      <div class="hero-side reveal delay-1" aria-hidden="true">
+        <div class="network-orbit">
+          <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span>
+          <div class="core">EA</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section wrap">
+      <div class="section-head reveal">
+        <p class="section-label">/ ABOUT ME</p>
+        <h2>Support experience with an infrastructure mindset.</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <p>
+            I'm a Computer Information Technology student at California State University,
+            Northridge and an IT Support Specialist with Ventura County Health Care Agency.
+            My work sits at the intersection of endpoint support, systems administration,
+            identity, networking, and infrastructure.
+          </p>
+          <p>
+            Outside of work, I build hands-on labs around Cisco IOS, Windows Server,
+            Linux, virtualization, AWS, and scripting so I can keep moving deeper into
+            systems and network infrastructure.
+          </p>
+          <div class="tech-list">
+            <span>Cisco IOS</span><span>Active Directory</span><span>Windows Server</span><span>Linux</span>
+            <span>PowerShell</span><span>AWS</span><span>ServiceNow</span><span>VirtualBox</span>
+          </div>
+        </div>
+
+        <aside class="about-card reveal delay-1 interactive-card">
+          <div class="about-stat"><span>CURRENT ROLE</span><strong>IT Support Specialist · Ventura County HCA</strong></div>
+          <div class="about-stat"><span>EDUCATION</span><strong>B.S. Computer Information Technology · CSUN</strong></div>
+          <div class="about-stat"><span>FOCUS</span><strong>Systems · Networking · Infrastructure · Cloud</strong></div>
+          <div class="about-stat"><span>LOCATION</span><strong>Southern California</strong></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="experience" class="section wrap">
+      <div class="section-head reveal">
+        <p class="section-label">/ EXPERIENCE</p>
+        <h2>Enterprise IT work with measurable impact.</h2>
+      </div>
+
+      <div class="timeline">
+        <article class="experience-card reveal interactive-card">
+          <div class="experience-top">
+            <div>
+              <h3>IT Support Specialist</h3>
+              <p class="experience-company">Ventura County Health Care Agency — Information Technology Department</p>
+            </div>
+            <span class="experience-date">SEP 2024 — PRESENT</span>
+          </div>
+
+          <ul class="experience-list">
+            <li><strong>Administer enterprise identity and access</strong> in Active Directory, handling user access, account cleanup, group and permission changes, profile updates, unlocks, and removal of obsolete accounts in a HIPAA-regulated environment.</li>
+            <li><strong>Resolve 20–30 ServiceNow incidents and service requests per week</strong> across connectivity, endpoint configuration, user access, software, peripherals, and enterprise hardware.</li>
+            <li><strong>Led a 200+ endpoint software remediation effort</strong> through ManageEngine Endpoint Central, targeting outdated applications and validating successful removal across affected systems.</li>
+            <li><strong>Support enterprise endpoint lifecycle operations</strong> through Windows imaging, configuration, deployment, troubleshooting, hardware replacement, and asset record maintenance across hundreds of devices.</li>
+            <li><strong>Reconcile enterprise asset data across multiple platforms</strong>, including ServiceNow, Endpoint Central, and Absolute/Computrace, to identify missing devices, duplicate records, ownership issues, and configuration discrepancies.</li>
+            <li><strong>Support network and communications infrastructure</strong> through connectivity troubleshooting, network cabling and RJ45 termination, MDF/IDF work, and enterprise VoIP phone deployment.</li>
+          </ul>
+
+          <div class="impact-row">
+            <div class="impact"><strong>20–30</strong><span>ServiceNow incidents / requests per week</span></div>
+            <div class="impact"><strong>200+</strong><span>endpoints in enterprise remediation effort</span></div>
+            <div class="impact"><strong>300+</strong><span>laptops imaged / deployed across lifecycle work</span></div>
+          </div>
+        </article>
+
+        <article class="secondary-role reveal delay-1">
+          <div><h3>Sales Associate — Best Buy</h3><p>Customer-facing technology support, troubleshooting, and product guidance</p></div>
+          <time>MAR 2023 — NOV 2025</time>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="section wrap">
+      <div class="section-head reveal">
+        <p class="section-label">/ PROJECTS</p>
+        <h2>Hands-on infrastructure projects.</h2>
+        <p>Practical labs built around the technologies I want to work with professionally.</p>
+      </div>
+
+      <div class="project-grid">
+        <article class="project-card reveal interactive-card">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <rect x="3" y="4" width="18" height="6" rx="2"></rect><rect x="3" y="14" width="18" height="6" rx="2"></rect><path d="M7 7h.01M7 17h.01M11 7h6M11 17h6"></path>
+            </svg>
+          </div>
+          <h3>Cisco IOS Multi-Device Network Infrastructure Lab</h3>
+          <p>
+            Configured and hardened a three-device Cisco network with two switches and a router,
+            including encrypted credentials, console/VTY access, SSH-only remote management,
+            switch management interfaces, IPv4 addressing, management gateways, uplink labeling,
+            and end-to-end management connectivity validation.
+          </p>
+          <div class="tags"><span>CISCO IOS</span><span>SWITCHING</span><span>ROUTING</span><span>IPV4</span><span>SSH</span></div>
+        </article>
+
+        <article class="project-card reveal delay-1 interactive-card">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <path d="M7 18a5 5 0 1 1 2-9.6A6 6 0 0 1 20 12a4 4 0 0 1-4 6Z"></path><path d="M12 12v8M9 16l3 4 3-4"></path>
+            </svg>
+          </div>
+          <h3>AWS Cloud Infrastructure Project</h3>
+          <p>
+            Deployed a Drupal web application on a Linux-based Amazon EC2 instance with an
+            Amazon RDS database backend. Configured cloud connectivity and HTTPS access while
+            managing the deployment within AWS infrastructure constraints.
+          </p>
+          <div class="tags"><span>EC2</span><span>RDS</span><span>LINUX</span><span>MYSQL / MARIADB</span><span>HTTPS</span></div>
+        </article>
+
+        <article class="project-card reveal delay-2 interactive-card">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <rect x="3" y="4" width="18" height="15" rx="2"></rect><path d="M8 22h8M12 19v3M7 9h4M7 13h7"></path>
+            </svg>
+          </div>
+          <h3>Windows Server & Linux Virtualization Lab</h3>
+          <p>
+            Built a multi-VM environment with Windows Server 2025 and CentOS using NAT and
+            host-only networking. Configured static IPv4 addressing, tested reachability,
+            troubleshot connectivity, and verified remote administration through SSH.
+          </p>
+          <div class="tags"><span>WINDOWS SERVER</span><span>CENTOS</span><span>VIRTUALBOX</span><span>IPV4</span><span>SSH</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="involvement" class="section wrap">
+      <div class="section-head reveal">
+        <p class="section-label">/ PROGRAMS & INVOLVEMENT</p>
+        <h2>Learning with people already doing the work.</h2>
+      </div>
+
+      <article class="feature-card reveal interactive-card">
+        <div class="feature-mark"><span>NCL × CS</span></div>
+        <div class="feature-copy">
+          <p class="meta">SELECTED MENTEE · FALL 2026 — PRESENT</p>
+          <h3>NCL × CrowdStrike Mentorship Program</h3>
+          <p>
+            Selected for the NCL × CrowdStrike mentorship program, connecting with industry
+            professionals while developing practical cybersecurity, networking, and defensive
+            operations skills alongside competition preparation.
+          </p>
+        </div>
+      </article>
+
+      <div class="org-grid">
+        <div class="org reveal"><strong>Layer 8 Cybersecurity Club</strong><span>Active Member · CSUN</span></div>
+        <div class="org reveal delay-1"><strong>IEEE CSUN Student Branch</strong><span>Member · Technical projects & workshops</span></div>
+        <div class="org reveal delay-1"><strong>SHPE</strong><span>Member · Professional & STEM development</span></div>
+        <div class="org reveal delay-2"><strong>Techqueria</strong><span>Member · Technology community</span></div>
+      </div>
+    </section>
+
+    <section id="education" class="section wrap">
+      <div class="section-head reveal">
+        <p class="section-label">/ EDUCATION & SKILLS</p>
+        <h2>CSUN coursework backed by hands-on practice.</h2>
+      </div>
+
+      <div class="two-col">
+        <article class="info-card reveal interactive-card">
+          <p class="section-label">EDUCATION</p>
+          <h3>B.S. Computer Information Technology</h3>
+          <p>California State University, Northridge · Expected Spring 2028</p>
+
+          <div class="coursework">
+            <div class="course"><code>CIT 101/L</code><span>CIT Fundamentals and Lab</span><small>DONE</small></div>
+            <div class="course"><code>CIT 160/L</code><span>Internet Technologies and Lab</span><small>DONE</small></div>
+            <div class="course"><code>COMP 122/L</code><span>Computer Architecture and Assembly Language and Lab</span><small>DONE</small></div>
+            <div class="course"><code>COMP 182/L</code><span>Data Structures and Program Design and Lab</span><small>DONE</small></div>
+            <div class="course"><code>CIT 210/L</code><span>Deployment and Management of Operating Systems and Lab</span><small>IP</small></div>
+            <div class="course"><code>CIT 270/L</code><span>Integrative Programming and Lab</span><small>IP</small></div>
+            <div class="course"><code>IS 312</code><span>Systems and Technologies for Managers</span><small>IP</small></div>
+          </div>
+        </article>
+
+        <article class="info-card reveal delay-1 interactive-card">
+          <p class="section-label">TECHNICAL SKILLS</p>
+
+          <div class="skill-groups">
+            <div class="skill-group">
+              <h4>NETWORKING & INFRASTRUCTURE</h4>
+              <div class="skill-pills">
+                <span>Cisco IOS</span><span>Cisco Switching</span><span>TCP/IP</span><span>IPv4</span><span>DHCP</span><span>DNS</span><span>Management SVIs</span><span>SSH</span><span>RJ45</span><span>MDF / IDF</span><span>VoIP</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h4>SYSTEMS & VIRTUALIZATION</h4>
+              <div class="skill-pills">
+                <span>Windows 10/11</span><span>Windows Server</span><span>Linux</span><span>Active Directory</span><span>Group Policy</span><span>VirtualBox</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h4>ENTERPRISE & SECURITY</h4>
+              <div class="skill-pills">
+                <span>ServiceNow</span><span>Endpoint Central</span><span>Absolute / Computrace</span><span>Microsoft 365</span><span>Check Point Harmony</span><span>Duo MFA</span><span>Meraki MDM</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <h4>SCRIPTING & TOOLS</h4>
+              <div class="skill-pills">
+                <span>PowerShell</span><span>Python</span><span>SQL</span><span>Windows CLI</span><span>Linux CLI</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact-section wrap">
+      <div class="section-head reveal">
+        <p class="section-label">/ LET'S CONNECT</p>
+        <h2>Interested in systems, networking, infrastructure, and IT operations.</h2>
+        <p>Open to internships, student roles, and technical opportunities where I can contribute while continuing to grow.</p>
+      </div>
+
+      <div class="contact-actions reveal delay-1">
+        <button class="contact-action" id="copyEmail" type="button" aria-label="Copy Erick's email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="m3 7 9 6 9-6"></path></svg>
+          <span>Copy email</span>
+        </button>
+        <a class="contact-action" href="https://www.linkedin.com/in/erick-amarales" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="8" width="4" height="12"></rect><path d="M5 4v.01"></path><path d="M11 20v-7a4 4 0 0 1 8 0v7"></path><path d="M11 8v12"></path></svg>
+          <span>LinkedIn</span>
+        </a>
+        <a class="contact-action" href="https://github.com/erickylabs" target="_blank" rel="noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.3-.4 6.8-1.6 6.8-7A5.4 5.4 0 0 0 19.4 4 5 5 0 0 0 19.3.5S18.2.1 15 2a13.4 13.4 0 0 0-6 0C5.8.1 4.7.5 4.7.5A5 5 0 0 0 4.6 4a5.4 5.4 0 0 0-1.4 3.5c0 5.4 3.5 6.6 6.8 7A4.8 4.8 0 0 0 9 18v4"></path><path d="M9 19c-3 .9-3-1.5-4-2"></path></svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+      <div class="copy-status" id="copyStatus" aria-live="polite">Email copied: erickviduh@gmail.com</div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <span>© 2026 Erick Amarales</span>
+    <span>Designed & built with HTML, CSS & JavaScript</span>
+  </footer>
+
+  <script>
+    const revealItems = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    revealItems.forEach(item => {
+      if (!item.classList.contains("visible")) observer.observe(item);
+    });
+
+    const sections = [...document.querySelectorAll("main section[id]")];
+    const navLinks = [...document.querySelectorAll(".nav-links > a")];
+
+    const setActive = () => {
+      const y = window.scrollY + 130;
+      let current = "";
+      sections.forEach(section => {
+        if (section.offsetTop <= y) current = section.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle("active", link.getAttribute("href") === "#" + current);
+      });
+    };
+
+    window.addEventListener("scroll", setActive, { passive: true });
+    setActive();
+
+    // Soft cursor-follow glow on key cards.
+    document.querySelectorAll(".interactive-card").forEach(card => {
+      card.addEventListener("pointermove", event => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+        card.style.setProperty("--my", `${event.clientY - rect.top}px`);
+      });
+    });
+
+    // Count up the three experience metrics once they enter view.
+    const metricValues = [
+      { el: document.querySelectorAll(".impact strong")[0], value: 20, suffix: "–30" },
+      { el: document.querySelectorAll(".impact strong")[1], value: 200, suffix: "+" },
+      { el: document.querySelectorAll(".impact strong")[2], value: 300, suffix: "+" }
+    ];
+
+    const metricObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        metricValues.forEach(item => {
+          if (!item.el || item.el.dataset.animated) return;
+          item.el.dataset.animated = "true";
+
+          const duration = 700;
+          const start = performance.now();
+
+          const tick = now => {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(item.value * eased);
+
+            if (item.suffix === "–30") {
+              item.el.textContent = progress < 1 ? `${current}` : "20–30";
+            } else {
+              item.el.textContent = `${current}${item.suffix}`;
+            }
+
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+
+          requestAnimationFrame(tick);
+        });
+
+        metricObserver.disconnect();
+      });
+    }, { threshold: .35 });
+
+    const impactRow = document.querySelector(".impact-row");
+    if (impactRow) metricObserver.observe(impactRow);
+
+    // Copy email with one tap/click.
+    const copyEmail = document.getElementById("copyEmail");
+    const copyStatus = document.getElementById("copyStatus");
+
+    if (copyEmail && copyStatus) {
+      copyEmail.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText("erickviduh@gmail.com");
+          copyStatus.classList.add("show");
+          setTimeout(() => copyStatus.classList.remove("show"), 1800);
+        } catch {
+          window.location.href = "mailto:erickviduh@gmail.com";
+        }
+      });
+    }
+
+  </script>
+</body>
+</html>
