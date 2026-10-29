@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Erick Amarales — CSUN Computer Information Technology student with two years of enterprise IT support experience. Networking, cloud infrastructure, and systems administration.">
+  <meta name="description" content="Erick Amarales — CSUN Computer Information Technology student with two years of enterprise IT support experience. Networking, cybersecurity, cloud infrastructure, and systems administration.">
   <meta name="theme-color" content="#f5f5f2">
   
   <title>Erick Amarales | IT Portfolio</title>
@@ -350,6 +350,23 @@ body{margin:0}
 #erick-combined .detail-nav{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:24px;margin-top:40px;font-size:14px}
 @media(max-width:780px){#erick-combined .project-grid{grid-template-columns:1fr;gap:8px}#erick-combined .project-copy h3{min-height:0}#erick-combined .hero-aside{grid-template-columns:200px minmax(0,1fr)}#erick-combined .profile-photo img{width:200px}#erick-combined .project-detail .project-media{height:250px}}
 @media(max-width:480px){#erick-combined .hero-aside{grid-template-columns:minmax(0,1fr)}#erick-combined .profile-photo{grid-row:auto}#erick-combined .profile-photo img{margin:0;width:200px}#erick-combined .profile-note{grid-column:auto}#erick-combined .project-grid{gap:4px}}
+
+/* Readable typography and a prominent education section. */
+#erick-combined{letter-spacing:normal;word-spacing:normal}
+#erick-combined :is(h1,h2,h3,h4,h5,h6){letter-spacing:normal;word-spacing:normal;line-height:1.25}
+#erick-combined :is(p,li,a,figcaption,th,td){letter-spacing:normal;word-spacing:normal}
+#erick-combined :is(.micro,.section-number,.project-category,.media-header,.tools,.drupal-identity p){font-family:Jakarta,Arial,sans-serif;letter-spacing:normal;font-size:12px}
+#erick-combined .project-detail h1{letter-spacing:normal;line-height:1.2}
+#erick-combined .project-detail h2{font-size:24px;font-weight:600;letter-spacing:normal;line-height:1.4;margin:32px 0 14px}
+#erick-combined .project-detail :is(p,li){line-height:1.85;overflow-wrap:break-word}
+#erick-combined .project-detail p+p{margin-top:14px}
+#erick-combined .project-copy .tools{font-family:Jakarta,Arial,sans-serif!important;font-size:12px!important}
+#erick-combined .education-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 32px;align-items:center;margin-top:48px;padding:36px;background:var(--white);border:1px solid var(--line);border-top:3px solid var(--blue)}
+#erick-combined .education-row>.micro{grid-column:1/-1;font-size:15px;font-weight:650;color:var(--blue);margin:0}
+#erick-combined .education-row h3{font-size:clamp(24px,2.8vw,32px);line-height:1.35;font-weight:650;letter-spacing:normal}
+#erick-combined .education-row div p{font-size:18px;line-height:1.6;margin-top:10px;color:var(--ink)}
+#erick-combined .education-row>span{font-size:15px;line-height:1.6;color:var(--muted)}
+@media(max-width:780px){#erick-combined .education-row{grid-template-columns:minmax(0,1fr);padding:26px;gap:14px}#erick-combined .education-row>span{margin-top:0}#erick-combined .education-row div p{font-size:16px}}
 </style>
   
 </head>
@@ -369,7 +386,7 @@ body{margin:0}
       <div class="hero-copy">
         <p class="hello">Hey, I’m</p>
         <h1 id="name" aria-label="Erick Amarales"><span>Erick</span> <span>Amarales<span class="name-period" aria-hidden="true">.</span></span></h1>
-        <p class="intro">I’m a Computer Information Technology student at <strong>CSUN</strong> with <strong>two years of enterprise IT support experience.</strong> I’m interested in networking, cloud infrastructure, and systems administration.</p>
+        <p class="intro">I’m a Computer Information Technology student at <strong>CSUN</strong> with <strong>two years of enterprise IT support experience.</strong> I’m interested in networking, cybersecurity, cloud infrastructure, and systems administration.</p>
         <div class="hero-actions"><a class="action-primary" href="#projects">View projects <span aria-hidden="true">↓</span></a><a class="hero-experience" href="#experience">Work experience <span aria-hidden="true">↗</span></a></div>
         <div class="socials" aria-label="Contact and social profiles"><a href="mailto:erickviduh@gmail.com">Email <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/erick-amarales/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a><a href="https://github.com/erickylabs" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
       </div>
@@ -379,7 +396,7 @@ body{margin:0}
         <div class="profile-note"><span class="small-mark" aria-hidden="true">↳</span><p>Outside of work and class,<br>I’m building a home lab.</p></div>
       </aside>
     </section>
-    <div class="hero-bottom wrap"><span>IT support <b>/</b> Networking <b>/</b> Cloud <b>/</b> Systems</span><a href="#projects">Selected work below <span aria-hidden="true">↓</span></a></div>
+    <div class="hero-bottom wrap"><span>IT support <b>/</b> Networking <b>/</b> Cloud <b>/</b> Systems<b>/</b> Cybersecurity</span><a href="#projects">Selected work below <span aria-hidden="true">↓</span></a></div>
 
     <section class="projects dark-section" id="projects" aria-labelledby="projects-title">
       <div class="wrap">
@@ -439,8 +456,7 @@ body{margin:0}
         <div class="employer-logo bestbuy-logo"><img src="https://cdn.jsdelivr.net/gh/bitwarden/passkeys-index@main/public/logos/best-buy.svg" width="96" height="64" alt="Best Buy logo" loading="lazy"><span class="logo-fallback" hidden>Best Buy</span></div>
         <div class="job-content">
           <header class="job-heading"><div><h3>Sales Associate</h3><p class="employer-name">Best Buy</p></div><p class="job-date"><time datetime="2023-03">March 2023</time>–<time datetime="2025-11">November 2025</time></p></header>
-          <p class="job-description">Customer-facing technology support, troubleshooting, and product guidance.</p>
-        </div>
+          <ul class="job-bullets"><li>Assisted customers with computers, mobile devices, and consumer technology products.</li><li>Developed technical troubleshooting and customer service skills in a high-volume retail environment.</li><li>Maintained inventory accuracy and organized technology merchandise.</li></ul></div>
       </article>
     </section>
 
