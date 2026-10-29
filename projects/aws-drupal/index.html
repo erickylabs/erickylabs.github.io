@@ -1,0 +1,344 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="I deployed Drupal on AWS using EC2 and RDS MariaDB, connected my domain, and set up HTTPS."><title>AWS Drupal Deployment | Erick Amarales</title><style>
+@font-face{font-family:Jakarta;src:url("../../assets/asset-2.ttf") format("truetype");font-weight:200 800;font-style:normal;font-display:swap}
+html{scroll-behavior:smooth}
+body{margin:0}
+#erick-combined{--paper:#f5f5f2;--white:#fff;--ink:#20242b;--muted:#5e6470;--blue:#214982;--blue-hover:#17396b;--line:#d7d9df;--night:#141c28;--night-panel:#1e2938;--night-muted:#b7c0cf;--night-line:#35404f;--night-blue:#a9c3eb;background:var(--paper);color:var(--ink);font:400 16px/1.7 Jakarta,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+#erick-combined *{box-sizing:border-box}
+#erick-combined :is(p,h1,h2,h3,h4,figure){margin:0}
+#erick-combined a{color:inherit;text-decoration:none}
+#erick-combined a:hover{text-decoration:none}
+#erick-combined :focus-visible{outline:3px solid var(--blue);outline-offset:6px}
+#erick-combined .dark-section :focus-visible{outline-color:var(--night-blue)}
+#erick-combined ::selection{background:var(--blue);color:var(--white)}
+#erick-combined [id]{scroll-margin-top:28px}
+#erick-combined .wrap{width:min(1120px,calc(100% - 112px));margin-inline:auto}
+#erick-combined .micro,#erick-combined .section-number,#erick-combined .project-category{font:500 11px/1.6 ui-monospace,"Cascadia Code","Courier New",monospace;letter-spacing:.09em}
+#erick-combined .skip-link{position:absolute;left:12px;top:8px;z-index:50;background:var(--white);padding:10px 16px;transform:translateY(-180%)}
+#erick-combined .skip-link:focus{transform:none}
+#erick-combined .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+
+/* Simple navigation remains available on small screens. */
+#erick-combined .site-header{border-bottom:1px solid var(--line)}
+#erick-combined .navigation{display:flex;align-items:center;justify-content:space-between;gap:28px;min-height:88px}
+#erick-combined .brand{display:inline-flex;align-items:center;min-height:44px;font-size:22px;font-weight:750;letter-spacing:-.06em;white-space:nowrap}
+#erick-combined .brand span{font-weight:400}
+#erick-combined .brand b{font:500 24px/1 Jakarta,Arial,sans-serif;color:var(--blue);margin-left:7px}
+#erick-combined nav{display:flex;align-items:center;gap:27px;font-size:12px;font-weight:600}
+#erick-combined nav a{position:relative;display:inline-flex;gap:10px;align-items:center;min-height:44px}
+#erick-combined nav a::after{content:"";position:absolute;bottom:4px;left:0;width:100%;height:2px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .18s ease}
+#erick-combined nav a:hover::after,#erick-combined nav a[aria-current="location"]::after{transform:scaleX(1)}
+
+/* Name-first introduction and a moderately larger real portrait. */
+#erick-combined .hero{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:72px;align-items:center;padding-block:65px 56px}
+#erick-combined .hello{font-size:20px;letter-spacing:-.025em;margin-bottom:13px}
+#erick-combined h1{font-size:clamp(74px,8vw,108px);line-height:.99;font-weight:650;letter-spacing:-.075em;margin-left:-5px;margin-bottom:29px}
+#erick-combined h1>span{display:block;animation:erick-name-enter .65s cubic-bezier(.2,.7,.2,1) both}
+#erick-combined h1>span+span{color:var(--blue);animation-delay:.08s}
+#erick-combined .name-period{color:var(--ink)}
+#erick-combined .intro{font-size:16px;line-height:1.85;max-width:600px;color:var(--muted)}
+#erick-combined .intro strong{font-weight:600;color:var(--ink)}
+#erick-combined .hero-actions{display:flex;align-items:center;gap:28px;flex-wrap:wrap;margin-top:27px;font-size:12px;font-weight:600}
+#erick-combined .action-primary{min-height:48px;display:inline-flex;align-items:center;gap:42px;padding:11px 18px;background:var(--blue);color:var(--white);border-radius:2px;transition:background .18s}
+#erick-combined .action-primary:hover{background:var(--blue-hover)}
+#erick-combined .action-primary span,#erick-combined .hero-experience span{display:inline-block;transition:transform .18s}
+#erick-combined .action-primary:hover span{transform:translateY(3px)}
+#erick-combined .hero-experience{display:inline-flex;gap:13px;align-items:center;min-height:44px}
+#erick-combined .hero-experience:hover{color:var(--blue)}
+#erick-combined .hero-experience:hover span{transform:translate(2px,-2px)}
+#erick-combined .socials{display:flex;align-items:center;gap:28px;margin-top:17px;font-size:12px;font-weight:500}
+#erick-combined .socials a{display:inline-flex;align-items:center;gap:10px;min-height:44px}
+#erick-combined .socials a:hover{color:var(--blue)}
+#erick-combined .hero-aside{padding-top:0}
+#erick-combined .profile-photo img{display:block;width:280px;height:280px;max-width:100%;object-fit:cover;margin-inline:auto;animation:erick-photo-enter .85s cubic-bezier(.2,.7,.2,1) both}
+#erick-combined .profile-details{margin-top:18px}
+#erick-combined .profile-details .micro{color:var(--muted);margin-bottom:6px}
+#erick-combined .profile-details>p+p{font-size:11px;line-height:1.9}
+#erick-combined .profile-details strong{font-weight:500}
+#erick-combined .profile-note{display:flex;align-items:flex-start;gap:15px;font-size:12px;line-height:1.8;border-top:1px solid var(--line);padding-top:16px;margin-top:18px;color:var(--muted)}
+#erick-combined .small-mark{font-size:25px;line-height:1.2;color:var(--blue)}
+#erick-combined .hero-bottom{display:flex;align-items:center;justify-content:space-between;gap:24px;border-top:1px solid var(--line);padding-block:16px;font-size:11px;color:var(--muted)}
+#erick-combined .hero-bottom b{color:var(--blue);font-weight:500;margin-inline:12px}
+#erick-combined .hero-bottom a{display:inline-flex;gap:20px;align-items:center;min-height:44px}
+#erick-combined .hero-bottom a:hover{color:var(--blue)}
+
+/* Substantial project rows follow the reference's text-and-media approach. */
+#erick-combined .dark-section{color:var(--white);background:var(--night)}
+#erick-combined .projects{padding-block:65px 30px}
+#erick-combined .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:36px}
+#erick-combined .section-number{color:var(--blue);margin-bottom:12px}
+#erick-combined .dark-section .section-number{color:var(--night-blue)}
+#erick-combined h2{font-size:clamp(42px,5vw,61px);line-height:1.1;font-weight:600;letter-spacing:-.065em}
+#erick-combined h2>span{color:var(--blue)}
+#erick-combined .dark-section h2>span{color:var(--night-blue)}
+#erick-combined .section-head>p{font-size:13px;line-height:1.8;color:var(--muted);padding-bottom:3px;max-width:350px}
+#erick-combined .dark-section .section-head>p{color:var(--night-muted)}
+#erick-combined .project-row{display:grid;grid-template-columns:minmax(0,1.13fr) minmax(0,1fr);align-items:start;gap:64px;border-top:1px solid var(--night-line);padding-block:36px 40px}
+#erick-combined .project-category{color:var(--night-blue);margin-bottom:15px}
+#erick-combined .project-category span{color:#7d8898;margin-inline:9px}
+#erick-combined h3{font-size:28px;line-height:1.23;letter-spacing:-.04em;font-weight:600}
+#erick-combined .project-copy>p:not(.project-category){color:var(--night-muted);font-size:14px;line-height:1.85;margin-top:17px}
+#erick-combined .project-copy .tools{color:#d1daea!important;font-size:11px!important;line-height:1.9!important;margin-top:17px!important}
+#erick-combined .tools span{color:#7d8898;margin-inline:5px}
+#erick-combined code{font-family:ui-monospace,"Courier New",monospace;font-size:.95em}
+#erick-combined .project-notes{margin-top:16px}
+#erick-combined .project-notes summary{display:flex;align-items:center;gap:25px;min-height:44px;width:fit-content;list-style:none;font-size:12px;font-weight:600;color:var(--white);cursor:pointer;border-bottom:1px solid #7787a0}
+#erick-combined .project-notes summary::-webkit-details-marker{display:none}
+#erick-combined .project-notes summary:hover{color:var(--night-blue);border-color:var(--night-blue)}
+#erick-combined .project-notes summary>span{display:inline-block;font-size:18px;transition:transform .2s}
+#erick-combined .project-notes[open] summary>span{transform:rotate(90deg)}
+#erick-combined .notes-body{margin-top:22px;padding:20px;border-left:2px solid var(--night-blue);background:var(--night-panel);font-size:13px;line-height:1.85;color:var(--night-muted)}
+#erick-combined .notes-body h4{font-size:13px;font-weight:600;color:var(--white);margin-bottom:10px}
+#erick-combined .notes-body p+p,#erick-combined .notes-body p+h4{margin-top:15px}
+#erick-combined .notes-body ul{padding-left:18px;margin:0 0 18px}
+#erick-combined .notes-body li{margin-bottom:6px}
+#erick-combined .notes-body .evidence-note{font-size:12px}
+#erick-combined .project-media{min-width:0;align-self:start}
+#erick-combined .media-header{display:flex;align-items:center;justify-content:space-between;gap:12px;font:500 11px/1.5 ui-monospace,"Courier New",monospace;letter-spacing:.045em}
+#erick-combined .project-media figcaption{font-size:11px;line-height:1.7}
+#erick-combined .aws-media{background:#f6f7f9;color:var(--ink);padding:20px 22px 14px}
+#erick-combined .aws-media .media-header{color:var(--muted)}
+#erick-combined .drupal-identity{padding:29px 12px 20px;text-align:center}
+#erick-combined .drupal-identity img{width:190px;height:auto;display:block;margin:0 auto}
+#erick-combined .drupal-identity p{font:500 11px/1.7 ui-monospace,"Courier New",monospace;margin-top:12px;color:var(--muted)}
+#erick-combined .small-evidence{display:flex;align-items:center;gap:14px;border:1px dashed #aeb5c0;padding:12px;font-size:11px;color:var(--muted)}
+#erick-combined .small-evidence>span{font-size:25px;color:var(--blue)}
+#erick-combined .small-evidence strong{display:block;font-weight:600;color:var(--ink)}
+#erick-combined .aws-media figcaption{color:var(--muted);margin-top:10px}
+#erick-combined .pi-media>img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center 78%}
+#erick-combined .pi-media figcaption{padding-top:10px;color:var(--night-muted)}
+#erick-combined .pi-media figcaption a{text-decoration:underline;text-underline-offset:3px}
+#erick-combined .cisco-media{background:var(--night-panel);padding:20px 22px 14px;color:#d2dbea}
+#erick-combined .cisco-media .media-header{color:var(--night-muted)}
+#erick-combined .packet-tracer-image{display:block;width:100%;height:auto;min-height:80px;max-height:285px;object-fit:contain;background:var(--white);margin-top:16px}
+#erick-combined .cisco-media a{text-decoration:underline;text-underline-offset:3px}
+#erick-combined .remote-image-status{color:var(--night-blue)}
+#erick-combined [hidden]{display:none!important}
+#erick-combined .logo-fallback{font-size:13px;font-weight:700;line-height:1.3;text-align:center}
+#erick-combined .cisco-media figcaption{margin-top:12px;color:var(--night-muted)}
+#erick-combined .report-media{padding:20px 22px 16px;background:#f6f7f9;color:var(--ink)}
+#erick-combined .sample-label{font-size:11px;color:var(--blue);font-weight:600}
+#erick-combined .report-media table{border-collapse:collapse;width:100%;margin-block:20px 16px;font-size:11px;line-height:1.65}
+#erick-combined .report-media :is(th,td){padding:12px 9px 12px 0;text-align:left;vertical-align:top;border-bottom:1px solid #d7dce3}
+#erick-combined .report-media th{color:var(--muted);font-size:11px;font-weight:500}
+#erick-combined .report-media td:first-child{font-family:ui-monospace,"Courier New",monospace}
+#erick-combined .report-media :is(th,td):last-child{padding-right:0}
+#erick-combined .report-media figcaption{color:var(--muted)}
+#erick-combined .reverse-media .project-copy{grid-column:2;grid-row:1}
+#erick-combined .reverse-media .project-media{grid-column:1;grid-row:1}
+#erick-combined .github-row{display:flex;align-items:center;justify-content:space-between;gap:25px;border-top:1px solid var(--night-line);padding-block:20px;font-size:12px}
+#erick-combined .github-row p{color:var(--night-muted)}
+#erick-combined .github-row a{display:inline-flex;align-items:center;gap:20px;min-height:44px;color:var(--white)}
+#erick-combined .github-row a:hover{color:var(--night-blue)}
+
+/* Consistent logo, job heading, dates, and resume-guided bullets. */
+#erick-combined .experience{padding-block:70px 56px}
+#erick-combined .experience-entry{display:grid;grid-template-columns:80px minmax(0,1fr);gap:24px;border-top:1px solid var(--line);padding-block:32px;transition:border-color .22s}
+#erick-combined .experience-entry:hover{border-top-color:var(--blue)}
+#erick-combined .employer-logo{width:80px;height:80px;display:grid;place-items:center;background:var(--white);border:1px solid #e1e4e9;padding:5px}
+#erick-combined .employer-logo img{display:block;width:100%;height:100%;object-fit:contain}
+#erick-combined .bestbuy-logo{padding:9px}
+#erick-combined .job-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+#erick-combined .job-heading>div{min-width:0}
+#erick-combined .job-heading h3{font-size:24px;line-height:1.3;letter-spacing:-.035em}
+#erick-combined .job-heading .employer-name{font-size:14px;font-weight:500;line-height:1.7;color:var(--blue);margin-top:5px}
+#erick-combined .role-subtitle{font-size:11px;color:var(--muted);margin-top:3px}
+#erick-combined .job-date{font-size:11px;white-space:nowrap;color:var(--muted);line-height:1.8;padding-top:5px;font-variant-numeric:tabular-nums}
+#erick-combined .job-bullets{margin:18px 0 0;padding-left:19px;max-width:900px;list-style:disc}
+#erick-combined .job-bullets li{font-size:14px;line-height:1.85;color:var(--muted);padding-left:5px;margin-top:8px}
+#erick-combined .job-bullets li::marker{color:var(--blue)}
+#erick-combined .job-description{font-size:14px;line-height:1.85;color:var(--muted);margin-top:17px}
+
+/* Community has a feature, text rows, and a separate personal column. */
+#erick-combined .community{background:#e9ecf1;border-top:1px solid var(--line);padding-block:66px 40px}
+#erick-combined .community-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:72px}
+#erick-combined .mentorship{padding:28px;background:var(--white);border-top:3px solid var(--blue)}
+#erick-combined .mentorship-label{display:flex;align-items:center;gap:14px;font-size:20px;letter-spacing:-.04em;font-weight:650;margin-bottom:22px}
+#erick-combined .mentorship-label>span:nth-child(2){font-weight:400;color:var(--muted)}
+#erick-combined .mentorship .micro{color:var(--blue);margin-bottom:9px}
+#erick-combined .mentorship h3{font-size:25px}
+#erick-combined .mentorship>p:last-child{font-size:13px;line-height:1.8;color:var(--muted);margin-top:14px}
+#erick-combined .organization-list{margin-top:16px}
+#erick-combined .organization-list>div{padding-block:13px;border-bottom:1px solid #c9cfd8;display:flex;justify-content:space-between;gap:20px;align-items:baseline}
+#erick-combined .organization-list h4{font-size:12px;font-weight:600;line-height:1.6;letter-spacing:-.015em}
+#erick-combined .organization-list p{font-size:11px;color:var(--muted);text-align:right;line-height:1.6}
+#erick-combined .other-orgs{font-size:12px;line-height:2;margin-top:18px}
+#erick-combined .other-orgs>span{display:block;font-size:11px;color:var(--muted)}
+#erick-combined .other-orgs b{font-weight:400;margin-inline:8px;color:var(--blue)}
+#erick-combined .personal-column article{border-top:1px solid #c0c8d3;padding-top:25px}
+#erick-combined .personal-column .micro{color:var(--blue);margin-bottom:13px}
+#erick-combined .personal-column h3{font-size:26px}
+#erick-combined .personal-column p:not(.micro){font-size:13px;line-height:1.85;color:var(--muted);margin-top:16px}
+#erick-combined .personal-column .personal-about{margin-top:35px}
+#erick-combined .personal-column .personal-about h3{font-size:22px}
+#erick-combined .education-row{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:26px;align-items:center;border-top:1px solid #c0c8d3;margin-top:48px;padding-top:28px}
+#erick-combined .education-row>.micro{color:var(--blue)}
+#erick-combined .education-row h3{font-size:17px;letter-spacing:-.025em}
+#erick-combined .education-row div p{font-size:12px;color:var(--muted);margin-top:6px}
+#erick-combined .education-row>span{font-size:11px;color:var(--muted)}
+
+/* Contact details are visible text, with direct links. */
+#erick-combined .contact{padding-top:55px}
+#erick-combined .contact-layout{display:grid;grid-template-columns:1fr 1.25fr;gap:60px;align-items:center;padding-bottom:45px}
+#erick-combined .contact-layout>div>p:last-child{font-size:14px;line-height:1.8;color:var(--night-muted);margin-top:21px}
+#erick-combined .contact-destinations .email-address{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:60px;padding-bottom:14px;border-bottom:1px solid #677385;font-size:clamp(20px,2.4vw,29px);letter-spacing:-.04em;font-weight:500}
+#erick-combined .contact-destinations>div{display:flex;align-items:center;gap:35px;font-size:13px;margin-top:17px}
+#erick-combined .contact-destinations>div a{display:inline-flex;align-items:center;gap:18px;min-height:44px}
+#erick-combined .contact-destinations a:hover{color:var(--night-blue)}
+#erick-combined .contact footer{border-top:1px solid var(--night-line);display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:18px;color:var(--night-muted);font-size:11px}
+#erick-combined .contact footer a{min-height:44px;display:inline-flex;gap:15px;align-items:center}
+
+@keyframes erick-name-enter{from{transform:translateY(25px);filter:blur(1px)}to{transform:translateY(0);filter:blur(0)}}
+@keyframes erick-photo-enter{from{transform:translateY(18px) scale(.97)}to{transform:translateY(0) scale(1)}}
+#erick-combined .project-media{transition:transform .25s ease,box-shadow .25s ease}
+@media(hover:hover){#erick-combined .project-media:hover{transform:translateY(-4px);box-shadow:0 12px 30px #00000026}}
+@media(max-width:1100px){
+  #erick-combined .wrap{width:calc(100% - 72px)}
+  #erick-combined .hero{gap:48px;grid-template-columns:minmax(0,1fr) 270px}
+  #erick-combined .profile-photo img{width:260px;height:260px}
+  #erick-combined nav{gap:20px}
+  #erick-combined .project-row{gap:42px}
+  #erick-combined .community-layout{gap:45px}
+  #erick-combined .organization-list>div{flex-direction:column;gap:4px}
+  #erick-combined .organization-list p{text-align:left}
+  #erick-combined .education-row{grid-template-columns:110px minmax(0,1fr) auto;gap:20px}
+}
+@media(max-width:780px){
+  #erick-combined .wrap{width:calc(100% - 48px)}
+  #erick-combined .navigation{flex-direction:column;align-items:flex-start;gap:0;padding-block:12px}
+  #erick-combined nav{width:100%;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px}
+  #erick-combined .brand{font-size:21px;min-height:38px}
+  #erick-combined .hero{grid-template-columns:minmax(0,1fr);padding-block:43px 32px;gap:35px}
+  #erick-combined h1{font-size:clamp(66px,12vw,91px)}
+  #erick-combined .hero-copy{max-width:650px}
+  #erick-combined .hero-aside{display:grid;grid-template-columns:190px minmax(0,1fr);align-items:center;gap:18px 30px;padding-top:0}
+  #erick-combined .profile-photo{grid-row:span 2}
+  #erick-combined .profile-photo img{width:190px;height:190px}
+    #erick-combined .profile-details{margin-top:0}
+  #erick-combined .profile-note{margin-top:0;padding-top:14px}
+  #erick-combined .hero-bottom{font-size:11px}
+  #erick-combined .hero-bottom>a{display:none}
+  #erick-combined .hero-bottom b{margin-inline:8px}
+  #erick-combined .projects{padding-top:45px}
+  #erick-combined .section-head{align-items:flex-start;flex-direction:column;gap:19px;margin-bottom:26px}
+  #erick-combined .section-head>p{max-width:100%}
+  #erick-combined .section-head>p br{display:none}
+  #erick-combined h2{font-size:46px}
+  #erick-combined .project-row{grid-template-columns:minmax(0,1fr);gap:26px;padding-block:28px 36px}
+  #erick-combined .project-copy{max-width:650px}
+  #erick-combined .reverse-media .project-copy,#erick-combined .reverse-media .project-media{grid-column:auto;grid-row:auto}
+  #erick-combined .project-media{width:100%;max-width:520px}
+  #erick-combined .aws-media .drupal-identity{padding-block:24px 18px}
+  #erick-combined .pi-media>img{max-height:260px}
+  #erick-combined .experience{padding-block:48px 35px}
+  #erick-combined .experience-entry{grid-template-columns:64px minmax(0,1fr);gap:22px;padding-block:28px}
+  #erick-combined .employer-logo{width:64px;height:64px}
+  #erick-combined .job-heading{flex-direction:column;gap:7px}
+  #erick-combined .job-heading h3{font-size:23px}
+  #erick-combined .job-date{padding:0}
+  #erick-combined .job-bullets li{font-size:13px}
+  #erick-combined .community{padding-top:46px}
+  #erick-combined .community-layout{grid-template-columns:minmax(0,1fr);gap:32px}
+  #erick-combined .organization-list>div{flex-direction:row;align-items:baseline;gap:20px}
+  #erick-combined .organization-list p{text-align:right}
+  #erick-combined .personal-column{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  #erick-combined .personal-column .personal-about{margin-top:0}
+  #erick-combined .education-row{grid-template-columns:minmax(0,1fr);gap:14px;margin-top:33px}
+  #erick-combined .education-row>span{margin-top:-6px}
+  #erick-combined .contact{padding-top:44px}
+  #erick-combined .contact-layout{grid-template-columns:minmax(0,1fr);gap:30px;padding-bottom:30px}
+  #erick-combined .contact-destinations{max-width:520px;width:100%}
+  #erick-combined .contact-destinations .email-address{font-size:clamp(20px,4.5vw,29px)}
+}
+@media(max-width:420px){
+  #erick-combined .wrap{width:calc(100% - 40px)}
+  #erick-combined nav{gap:7px 14px;font-size:11px;justify-content:flex-start}
+  #erick-combined nav a{min-height:44px}
+  #erick-combined .hello{font-size:18px}
+  #erick-combined h1{font-size:clamp(59px,15vw,66px);margin-left:-3px;margin-bottom:23px}
+  #erick-combined .intro{font-size:14px;line-height:1.85}
+  #erick-combined .hero-actions{gap:20px;font-size:11px}
+  #erick-combined .action-primary{gap:25px;padding-inline:15px}
+  #erick-combined .hero-aside{grid-template-columns:150px minmax(0,1fr);gap:12px 18px}
+  #erick-combined .profile-photo img{width:150px;height:150px}
+  #erick-combined .profile-details>p+p{font-size:11px;line-height:1.7}
+  #erick-combined .profile-note{grid-column:2;padding-top:12px;gap:9px;font-size:11px}
+  #erick-combined .small-mark{font-size:22px}
+  #erick-combined .profile-note br{display:none}
+  #erick-combined .hero-bottom>span{line-height:1.9}
+  #erick-combined .hero-bottom b{margin-inline:5px}
+  #erick-combined h2{font-size:42px}
+  #erick-combined h3{font-size:25px}
+  #erick-combined .project-copy>p:not(.project-category){font-size:13px}
+  #erick-combined .project-copy .tools{font-size:11px}
+  #erick-combined .aws-media,#erick-combined .report-media,#erick-combined .cisco-media{padding-inline:16px}
+  #erick-combined .small-evidence{padding:10px;gap:9px}
+  #erick-combined .drupal-identity img{width:175px}
+  #erick-combined .report-media table{font-size:11px}
+  #erick-combined .report-media :is(th,td){padding-right:7px;overflow-wrap:anywhere}
+  #erick-combined .github-row{flex-direction:column;align-items:flex-start;gap:4px}
+  #erick-combined .experience-entry{grid-template-columns:56px minmax(0,1fr);gap:16px}
+  #erick-combined .employer-logo{width:56px;height:56px}
+  #erick-combined .job-heading h3{font-size:21px}
+  #erick-combined .job-heading .employer-name{font-size:12px}
+  #erick-combined .job-bullets{padding-left:17px}
+  #erick-combined .job-bullets li{padding-left:3px}
+  #erick-combined .job-date{white-space:normal}
+  #erick-combined .community-layout{gap:30px}
+  #erick-combined .mentorship{padding:22px}
+  #erick-combined .mentorship-label{font-size:18px;gap:12px}
+  #erick-combined .mentorship h3{font-size:23px}
+  #erick-combined .organization-list>div{flex-direction:column;gap:4px}
+  #erick-combined .organization-list p{text-align:left}
+  #erick-combined .personal-column{grid-template-columns:minmax(0,1fr);gap:28px}
+  #erick-combined .personal-column h3{font-size:25px}
+  #erick-combined .contact-destinations .email-address{font-size:20px;gap:12px}
+}
+@media(max-width:600px){
+  #erick-combined .job-content{display:contents}
+  #erick-combined .job-heading{grid-column:2}
+  #erick-combined .job-bullets,#erick-combined .job-description{grid-column:1/-1;margin-top:0}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  #erick-combined *,#erick-combined *::before,#erick-combined *::after{animation:none!important;transition:none!important}
+  #erick-combined .action-primary span,#erick-combined .hero-experience span{transform:none!important}
+  #erick-combined .project-media:hover{transform:none!important}
+}
+
+
+/* Refined layout */
+#erick-combined .profile-photo img{width:200px;height:auto;aspect-ratio:1;object-fit:contain;max-width:100%}
+#erick-combined .hero{padding-block:52px 44px}
+#erick-combined .project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 40px}
+#erick-combined .project-row{display:flex;flex-direction:column;gap:22px;padding:24px 0 26px;min-width:0}
+#erick-combined .project-media{order:-1;align-self:stretch;width:100%;max-width:none;height:230px;overflow:hidden;display:flex;flex-direction:column;justify-content:center;margin:0}
+#erick-combined .pi-media{position:relative}
+#erick-combined .pi-media>img{height:100%;width:100%;object-fit:cover;object-position:center 78%;aspect-ratio:auto;max-height:none}
+#erick-combined .pi-media figcaption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,#000b);color:#fff;padding:26px 16px 12px}
+#erick-combined .project-copy{display:flex;flex-direction:column;flex:1}
+#erick-combined .project-copy h3{font-size:26px;min-height:64px}
+#erick-combined .project-copy>p:not(.tools){margin-top:12px;line-height:1.75}
+#erick-combined .project-copy .tools{margin-bottom:20px}
+#erick-combined .project-link{display:inline-flex;align-items:center;justify-content:space-between;gap:25px;font-size:13px;min-height:44px;border-bottom:1px solid #7787a0;width:fit-content;margin-top:auto}
+#erick-combined .project-link:hover{color:var(--night-blue);border-color:var(--night-blue)}
+#erick-combined .network-visual{text-align:center;padding:12px}
+#erick-combined .network-visual img{display:block;margin:0 auto 18px;width:108px;height:108px}
+#erick-combined .network-visual p{font-size:12px;color:var(--night-muted)}
+#erick-combined .cisco-media figcaption{text-align:center;margin-top:6px}
+#erick-combined .aws-media .drupal-identity{padding:25px 0 6px}
+#erick-combined .report-media table{margin-block:12px;font-size:11px}
+#erick-combined .report-media :is(th,td){padding-block:8px}
+#erick-combined .project-detail{padding-block:44px 64px;max-width:850px}
+#erick-combined .project-detail h1{font-size:clamp(34px,6vw,56px);line-height:1.15;letter-spacing:-.04em;margin:24px 0}
+#erick-combined .project-detail h2{font-size:24px;margin:32px 0 16px}
+#erick-combined .project-detail h4{font-size:18px;margin:28px 0 12px}
+#erick-combined .project-detail p,#erick-combined .project-detail li{font-size:16px;line-height:1.8;color:var(--muted)}
+#erick-combined .project-detail ul{padding-left:22px}
+#erick-combined .project-detail .project-media{height:300px;margin:30px 0;background:var(--night-panel)}
+#erick-combined .project-detail .report-media,#erick-combined .project-detail .aws-media{background:#eef0f4}
+#erick-combined .project-detail .project-media p{font-size:13px}
+#erick-combined .detail-nav{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:24px;margin-top:40px;font-size:14px}
+@media(max-width:780px){#erick-combined .project-grid{grid-template-columns:1fr;gap:8px}#erick-combined .project-copy h3{min-height:0}#erick-combined .hero-aside{grid-template-columns:200px minmax(0,1fr)}#erick-combined .profile-photo img{width:200px}#erick-combined .project-detail .project-media{height:250px}}
+@media(max-width:480px){#erick-combined .hero-aside{grid-template-columns:minmax(0,1fr)}#erick-combined .profile-photo{grid-row:auto}#erick-combined .profile-photo img{margin:0;width:200px}#erick-combined .profile-note{grid-column:auto}#erick-combined .project-grid{gap:4px}}
+</style></head><body><div id="erick-combined"><header class="navigation wrap"><a class="brand" href="../../index.html">erickylabs</a><nav aria-label="Main navigation"><a href="../../index.html#projects">Projects</a><a href="../../index.html#experience">Experience</a><a href="../../index.html#contact">Contact</a></nav></header><main class="project-detail wrap"><a href="../../index.html#projects">← All projects</a><h1>AWS Drupal Deployment</h1><p>I deployed Drupal on AWS using EC2 and RDS MariaDB, connected my domain, and set up HTTPS.</p><figure class="project-media aws-media"><div class="media-header"><span>DRUPAL / AWS</span><span>COURSE LAB</span></div><div class="drupal-identity"><img src="../../assets/asset-5.png" width="250" height="88" alt="Drupal" loading="lazy"><p>EC2 + RDS MariaDB</p></div></figure>
+        <h2>What I did</h2><ul><li>Deployed the Drupal application on Amazon EC2.</li><li>Connected Drupal to an Amazon RDS MariaDB database.</li><li>Pointed my domain to the website and configured HTTPS.</li><li>Checked the website and Drupal admin page.</li></ul><p>This was a CIT 270 course lab. A running instance was one part of the work; I also needed the application, database connection, domain, and HTTPS working together.</p><p>The CIT 270 lab earned an A.</p><nav class="detail-nav" aria-label="Project navigation"><a href="../../index.html#projects">← Back to projects</a><a href="../reporting-automation/index.html">Next project →</a></nav></main></div></body></html>
