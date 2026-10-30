@@ -1,5 +1,23 @@
-# Erickylabs portfolio
+# Erickylabs | IT Portfolio
 
-Upload the contents of this folder to the folder served by your existing GitHub Pages repository. Keep projects/ and assets/ in their current locations. Relative links support both user sites and repository project sites. No build step or contact service is needed.
+My personal portfolio covering my IT experience, hands-on projects, education, and technical interests.
 
-Open index.html locally to review the homepage and all four linked project pages before uploading. Existing work and community descriptions are retained from the supplied preview; review them before publishing. No resume is included.
+**[Visit my portfolio](https://erickylabs.github.io/)**
+
+## About me
+
+I’m a Computer Information Technology student at California State University, Northridge, with experience supporting enterprise and school technology. My interests include networking, systems administration, cloud infrastructure, and cybersecurity.
+
+## Featured projects
+
+- **Home Network Infrastructure & Security:** Raspberry Pi, Pi-hole, Unbound, Uptime Kuma, Docker, and Tailscale.
+- **Cisco Networking & Routing Labs:** IPv4 addressing, routing, SSH management, and connectivity troubleshooting.
+- **AWS Drupal Deployment:** Drupal hosted on EC2 with RDS MariaDB, DNS, and HTTPS.
+
+## Built with
+
+HTML, CSS, and JavaScript. Hosted on GitHub Pages.
+
+## Connect
+
+[LinkedIn](https://www.linkedin.com/in/erick-amarales/) · [GitHub](https://github.com/erickylabs) · [Email](mailto:erickviduh@gmail.com)
